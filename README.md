@@ -32,6 +32,21 @@
 
 ### 📍 第二篇：工作流引擎使用教程
 
+### 📍 第三篇：Clash Verge Ubuntu 部署指南
+
+**标题**: [Clash Verge Ubuntu 部署与自动节点调度](./articles/03-clash-verge-guide/clash-verge-ubuntu-deployment.md)
+
+**发布时间**: 2026-04-21
+
+**核心内容**:
+- ✅ Clash Verge Rev 安装部署
+- ✅ Ubuntu 配置指南
+- ✅ 自动节点调度方案
+- ✅ TUN 模式与高级配置
+
+**阅读时间**: 约 20 分钟
+
+
 **标题**: [Harness Engineering 工作流引擎使用教程](./articles/02-workflow-tutorial/workflow-engine-tutorial.md)
 
 **发布时间**: 2026-04-21
