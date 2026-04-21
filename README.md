@@ -30,6 +30,21 @@
 
 ### 📍 第一篇：Harness Engineering 实战
 
+### 📍 第二篇：工作流引擎使用教程
+
+**标题**: [Harness Engineering 工作流引擎使用教程](./articles/02-workflow-tutorial/workflow-engine-tutorial.md)
+
+**发布时间**: 2026-04-21
+
+**核心内容**:
+- ✅ 工作流引擎基本概念
+- ✅ YAML 格式定义工作流
+- ✅ 5 个开箱即用模板
+- ✅ 实战演示 + 常见问题
+
+**阅读时间**: 约 15 分钟
+
+
 **标题**：[80 分钟搭建 AI 秘书团队：Harness Engineering 完整实施指南](./articles/01-harness-engineering-guide/harness-engineering-implementation-guide.md)
 
 **发布时间**：2026-04-21
