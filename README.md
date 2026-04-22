@@ -4,7 +4,7 @@
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![Articles](https://img.shields.io/badge/articles-1-blue.svg)]()
+[![Articles](https://img.shields.io/badge/articles-3-blue.svg)]()
 
 ---
 
@@ -31,4 +31,32 @@
 ### 📍 第一篇：Harness Engineering 实战
 
 ### 📍 第二篇：工作流引擎使用教程
+
+**发布时间**：2026-04-21
+
+**核心内容**：
+- ✅ 工作流引擎架构解析
+- ✅ 节点类型与执行流程
+- ✅ 实战案例分享
+
+**阅读时间**：约 20 分钟
+
+[📖 阅读全文](articles/workflow-engine-tutorial/workflow-engine-tutorial.md)
+
+---
+
+### 📍 第三篇：多 Agent 协同 CI/CD 流水线实战
+
+**发布时间**：2026-04-22
+
+**核心内容**：
+- ✅ 8 个 Agent 角色详解与协同模式
+- ✅ 基于 OpenClaw 的完整实现方案
+- ✅ 最佳实践与性能优化技巧
+
+**阅读时间**：约 25 分钟
+
+[📖 阅读全文](articles/openclaw-multiagent-cicd/openclaw-multiagent-cicd-practice.md)
+
+---
 
