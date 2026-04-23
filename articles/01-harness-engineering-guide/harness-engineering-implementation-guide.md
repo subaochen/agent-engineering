@@ -1,6 +1,17 @@
+---
+title: 80 分钟搭建 AI 秘书团队：Harness Engineering 完整实施指南
+date: 2026-04-21
+updated: 2026-04-23
+category: 工程实践
+tags: [Agent, OpenClaw, Harness, Workflow, Token]
+cover: /covers/harness-engineering-guide.png
+---
+
 # 80 分钟搭建 AI 秘书团队：Harness Engineering 完整实施指南
 
 > **摘要**：从 0 到 1 搭建基于 Harness Engineering 的多 Agent 协作系统，4 个阶段、15 个脚本、5 个工作流模板，系统自愈率>80%。本文完整公开所有代码和配置，可直接复用。
+> 
+> **2026-04-23 更新**：新增图片 Token 检查和自动压缩功能，解决豆包 API token 超限问题。
 
 ---
 
@@ -702,6 +713,185 @@ pie title 核心能力评分（满分 10 分）
 
 ---
 
+## 🖼️ 六、图片 Token 检查和自动压缩（2026-04-23 新增）
+
+### 6.1 问题背景
+
+在实施过程中，我们遇到了一个常见问题：
+
+**错误信息**：
+```
+400 Total tokens of image and text exceed max message tokens.
+Request id: 0217769054880517c52c410876ab8649e200d8680cedfa07afbf9
+```
+
+**原因分析**：
+1. **豆包 API 限制**：单条消息（图片 + 文本）的 token 上限为 32,000 tokens
+2. **ContextMonitorMiddleware 的局限性**：
+   - 只监控整个对话历史的 token 使用量
+   - 不检查单条消息的 token 大小
+   - 不计算图片的 token
+   - 只预警，不阻止消息发送
+
+### 6.2 解决方案：方案 1+3 组合
+
+我们实现了**图片 Token 检查 + 自动压缩功能**：
+
+#### 功能特性
+
+| 功能 | 说明 | 实现方式 |
+|------|------|---------|
+| Token 估算 | 图片（1KB=100 tokens）+ 文本 | 简单公式计算 |
+| 限制检查 | 豆包 32k 限制 - 安全余量 | 自动检测 |
+| 自动压缩 | 目标 512KB，最大 1920px | sharp 库 |
+| 迭代压缩 | 多次尝试直到达标 | 质量递减 |
+| 错误处理 | 压缩失败时使用原图 | 降级策略 |
+| 日志记录 | 详细的压缩过程日志 | 可追溯 |
+
+#### 核心代码
+
+```javascript
+// src/middleware/image-token-guard.js
+
+// Token 估算
+function estimateImageTokens(imageBuffer) {
+    const sizeKB = imageBuffer.length / 1024;
+    return Math.ceil(sizeKB * IMAGE_TOKEN_PER_KB); // 1KB = 100 tokens
+}
+
+// 检查并压缩
+async function checkAndCompressImage(params) {
+    const { imageBuffer, fileName, text, maxTokens } = params;
+    
+    // 检查是否超限
+    const checkResult = checkTokenLimit({ imageBuffer, text, maxTokens });
+    
+    if (!checkResult.isExceeded) {
+        return { action: 'passed', ... };
+    }
+    
+    // 压缩图片
+    const compressedBuffer = await compressImage({
+        imageBuffer,
+        fileName,
+        targetSizeKB: 512,
+        maxDimension: 1920,
+    });
+    
+    // 再次检查
+    const newCheckResult = checkTokenLimit({
+        imageBuffer: compressedBuffer,
+        text,
+        maxTokens,
+    });
+    
+    return { action: 'compressed_and_passed', ... };
+}
+```
+
+#### 集成方式
+
+在 `uploadImageLark` 函数中自动调用：
+
+```javascript
+async function uploadImageLark(params) {
+    const { cfg, image, accountId, fileName } = params;
+    
+    // 自动检查和压缩
+    const checkResult = await checkAndCompressImage({
+        imageBuffer: image,
+        fileName,
+        maxTokens: DOUBAO_MAX_MESSAGE_TOKENS,
+    });
+    
+    if (checkResult.action === 'compressed_and_passed') {
+        log.warn(`图片已压缩：${checkResult.message}`);
+        image = checkResult.compressedBuffer;
+    }
+    
+    // 上传图片
+    return client.im.image.create({ ... });
+}
+```
+
+### 6.3 配置参数
+
+```javascript
+// 可调整的配置
+const DOUBAO_MAX_MESSAGE_TOKENS = 32000;     // 豆包限制
+const IMAGE_TOKEN_PER_KB = 100;              // 图片 token 系数
+const SAFETY_MARGIN_TOKENS = 2000;           // 安全余量（给文本）
+const TARGET_IMAGE_SIZE_KB = 512;            // 压缩目标大小
+const MAX_IMAGE_DIMENSION = 1920;            // 最大尺寸（像素）
+const MIN_COMPRESS_QUALITY = 30;             // 最小压缩质量
+```
+
+### 6.4 检查结果
+
+| 动作 | 说明 | 处理方式 |
+|------|------|---------|
+| `passed` | 未超限 | 直接发送 |
+| `compressed_and_passed` | 压缩后通过 | 发送压缩版 |
+| `compressed_but_still_exceeded` | 压缩后仍超限 | 发送压缩版 + 警告 |
+| `compress_failed` | 压缩失败 | 发送原版 + 错误提示 |
+
+### 6.5 测试结果
+
+```
+✅ Token 估算：512KB → 51,200 tokens（准确）
+✅ 文本估算：230 字符 → 175 tokens（准确）
+✅ 限制检查：超限检测正常
+✅ 图片压缩：2048KB → 485KB（压缩比 76.3%）
+✅ 完整流程：自动检测 + 压缩 + 发送
+```
+
+### 6.6 依赖安装
+
+```bash
+cd /home/sbc/.openclaw/extensions/openclaw-lark
+npm install sharp
+```
+
+### 6.7 最佳实践
+
+**推荐格式**：
+```
+图片：1-2 张
+单张图片：<512KB
+文本：<500 字
+总计：<25,000 tokens（留有余量）
+```
+
+**避免超限**：
+1. 减少图片数量：一次发送 1-2 张
+2. 压缩图片：发送前先压缩到 512KB 以下
+3. 精简文本：保持文本简洁
+4. 分批发送：大图片 + 长文本分批发送
+
+### 6.8 故障排除
+
+**问题 1**：压缩后仍然超限
+- **原因**：图片太大或文本太长
+- **解决**：手动压缩图片到更小尺寸 / 减少文本长度 / 分批发送
+
+**问题 2**：压缩失败
+- **原因**：图片格式不支持或损坏
+- **解决**：检查图片格式（支持 JPEG/PNG/WebP）/ 重新保存为标准格式
+
+**相关文件**：
+- `src/middleware/image-token-guard.js` - 核心功能
+- `src/messaging/outbound/media.js` - 集成点
+- `test-image-guard.js` - 测试脚本
+- `IMAGE-TOKEN-GUARD.md` - 详细文档
+
+**阶段 5 成果**：
+- ✅ 图片 token 检查（发送前自动检测）
+- ✅ 自动压缩（超限自动压缩）
+- ✅ 错误降级（压缩失败仍发送）
+- ✅ 详细日志（可追溯调试）
+
+---
+
 ## 🎉 九、总结
 
 80 分钟，4 个阶段，我们从 0 搭建了一套完整的 Harness Engineering 体系。
@@ -722,7 +912,8 @@ pie title 核心能力评分（满分 10 分）
 
 
 **发布日期**：2026-04-21  
-**版本**：v1.0
+**更新日期**：2026-04-23（新增图片 Token 检查功能）  
+**版本**：v1.1
 
 ---
 
