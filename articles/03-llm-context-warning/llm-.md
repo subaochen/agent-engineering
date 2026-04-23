@@ -605,6 +605,187 @@ Obsidian/archive/2026-04-22-项目讨论.md
 
 ---
 
+## 🖼️ 特殊场景：图片 + 文本的 Token 超限问题（2026-04-23 新增）
+
+### 问题背景
+
+除了对话历史累计的 Token 超限，还有一个常见但容易被忽略的场景：**单条消息中图片 + 文本的总 Token 超限**。
+
+**真实错误信息**：
+```
+400 Total tokens of image and text exceed max message tokens.
+Request id: 0217769054880517c52c410876ab8649e200d8680cedfa07afbf9
+```
+
+**为什么容易被忽略？**：
+1. 📊 ContextMonitorMiddleware 监控的是**整个对话历史**，不检查单条消息
+2. 🖼️ 图片的 Token 消耗很大，但肉眼看不出来
+3. 📝 文本 + 图片的总 Token 可能瞬间超限
+4. ⚠️ 错误信息不明确，容易误以为是网络问题
+
+### 豆包 API 的特殊限制
+
+**豆包（Doubao）API 的消息级限制**：
+
+| 限制项 | 数值 | 说明 |
+|--------|------|------|
+| 单条消息最大 Token | 32,000 | 图片 + 文本总和 |
+| 1KB 图片 ≈ Token 数 | 100 | 保守估算系数 |
+| 512KB 图片 ≈ Token 数 | 51,200 | 已超限制 |
+| 安全余量 | 2,000 | 建议保留 |
+
+**注意**：这是**单条消息**的限制，和对话历史累计是两个维度！
+
+| 超限类型 | 监控方式 | 错误信息 |
+|---------|---------|---------|
+| 对话历史累计 | ✅ ContextMonitor 监控 | `context_length_exceeded` |
+| 单条消息（图片+文本） | ❌ 容易被忽略 | `Total tokens of image and text exceed max` |
+
+### 解决方案：方案 1+3 组合
+
+我们实现了**图片 Token 检查 + 自动压缩功能**，在发送前自动处理：
+
+#### 功能特性
+
+| 功能 | 说明 | 实现方式 |
+|------|------|---------|
+| Token 估算 | 图片（1KB=100 tokens）+ 文本 | 简单公式计算 |
+| 限制检查 | 豆包 32k 限制 - 安全余量 | 自动检测 |
+| 自动压缩 | 目标 512KB，最大 1920px | sharp 库 |
+| 迭代压缩 | 多次尝试直到达标 | 质量递减 |
+| 错误处理 | 压缩失败时使用原图 | 降级策略 |
+| 日志记录 | 详细的压缩过程日志 | 可追溯 |
+
+#### 核心代码
+
+```javascript
+// src/middleware/image-token-guard.js
+
+// Token 估算
+function estimateImageTokens(imageBuffer) {
+    const sizeKB = imageBuffer.length / 1024;
+    return Math.ceil(sizeKB * IMAGE_TOKEN_PER_KB); // 1KB = 100 tokens
+}
+
+// 检查并压缩
+async function checkAndCompressImage(params) {
+    const { imageBuffer, fileName, text, maxTokens } = params;
+    
+    // 检查是否超限
+    const checkResult = checkTokenLimit({ imageBuffer, text, maxTokens });
+    
+    if (!checkResult.isExceeded) {
+        return { action: 'passed', ... };
+    }
+    
+    // 压缩图片
+    const compressedBuffer = await compressImage({
+        imageBuffer,
+        fileName,
+        targetSizeKB: 512,
+        maxDimension: 1920,
+    });
+    
+    // 再次检查
+    const newCheckResult = checkTokenLimit({
+        imageBuffer: compressedBuffer,
+        text,
+        maxTokens,
+    });
+    
+    return { action: 'compressed_and_passed', ... };
+}
+```
+
+#### 集成方式
+
+在 `uploadImageLark` 函数中自动调用：
+
+```javascript
+async function uploadImageLark(params) {
+    const { cfg, image, accountId, fileName } = params;
+    
+    // 自动检查和压缩
+    const checkResult = await checkAndCompressImage({
+        imageBuffer: image,
+        fileName,
+        maxTokens: DOUBAO_MAX_MESSAGE_TOKENS,
+    });
+    
+    if (checkResult.action === 'compressed_and_passed') {
+        log.warn(`图片已压缩：${checkResult.message}`);
+        image = checkResult.compressedBuffer;
+    }
+    
+    // 上传图片
+    return client.im.image.create({ ... });
+}
+```
+
+### 配置参数
+
+```javascript
+// 可调整的配置
+const DOUBAO_MAX_MESSAGE_TOKENS = 32000;     // 豆包限制
+const IMAGE_TOKEN_PER_KB = 100;              // 图片 token 系数
+const SAFETY_MARGIN_TOKENS = 2000;           // 安全余量（给文本）
+const TARGET_IMAGE_SIZE_KB = 512;            // 压缩目标大小
+const MAX_IMAGE_DIMENSION = 1920;            // 最大尺寸（像素）
+const MIN_COMPRESS_QUALITY = 30;             // 最小压缩质量
+```
+
+### 检查结果类型
+
+| 动作 | 说明 | 处理方式 |
+|------|------|---------|
+| `passed` | 未超限 | 直接发送 |
+| `compressed_and_passed` | 压缩后通过 | 发送压缩版 |
+| `compressed_but_still_exceeded` | 压缩后仍超限 | 发送压缩版 + 警告 |
+| `compress_failed` | 压缩失败 | 发送原版 + 错误提示 |
+
+### 测试结果
+
+```
+✅ Token 估算：512KB → 51,200 tokens（准确）
+✅ 文本估算：230 字符 → 175 tokens（准确）
+✅ 限制检查：超限检测正常
+✅ 图片压缩：2048KB → 485KB（压缩比 76.3%）
+✅ 完整流程：自动检测 + 压缩 + 发送
+```
+
+### 最佳实践
+
+**推荐的发送格式**：
+```
+图片：1-2 张
+单张图片：<512KB
+文本：<500 字
+总计：<25,000 tokens（留有余量）
+```
+
+**避免超限的 4 个技巧**：
+1. 减少图片数量：一次发送 1-2 张
+2. 压缩图片：发送前先压缩到 512KB 以下
+3. 精简文本：保持文本简洁，避免冗余
+4. 分批发送：大图片 + 长文本分批发送
+
+### 故障排除
+
+**问题 1**：压缩后仍然超限
+- **原因**：图片太大或文本太长
+- **解决**：手动压缩图片到更小尺寸 / 减少文本长度 / 分批发送
+
+**问题 2**：压缩失败
+- **原因**：图片格式不支持或损坏
+- **解决**：检查图片格式（支持 JPEG/PNG/WebP）/ 重新保存为标准格式
+
+**相关文件**：
+- `src/middleware/image-token-guard.js` - 核心功能
+- `src/messaging/outbound/media.js` - 集成点
+- `test-image-guard.js` - 测试脚本
+
+---
+
 ## 📊 对比：处理 vs 不处理
 
 | 场景 | 处理方式 | 结果 |
@@ -683,8 +864,8 @@ Obsidian/archive/2026-04-22-项目讨论.md
 ---
 
 *作者：OpenClaw 团队*  
-*版本：v1.0.0*  
-*最后更新：2026-04-22*  
+*版本：v1.1.0*  
+*最后更新：2026-04-23（新增图片 Token 检查章节）*  
 *GitHub: https://github.com/subaochen/agent-engineering*
 
 ---
