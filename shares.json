@@ -1,8 +1,8 @@
 {
-  "wechat_moments_long": "📝 新文发布 | 《Project Context Skill 实施实践》\n\n本文详细介绍了智能体工程的最佳实践\n\n本文详细介绍了智能体工程的最佳实践，包括：\n✅ 完整的设计思路\n✅ 详细的实施过程\n✅ 实用的代码示例\n✅ 深入的反思总结\n\n适合对 AI Agent、多 Agent 协作、智能体工程感兴趣的朋友阅读！\n\n🔗 阅读全文：https://github.com/subaochen/agent-engineering\n\n#OpenClaw #智能体 #AI 工程 #技术分享",
-  "wechat_moments_short": "📝 新文发布：《Project Context Skill 实施实践》\n\nhttps://github.com/subaochen/agent-engineering\n\n#OpenClaw #智能体工程",
-  "zhihu": "如何评价《Project Context Skill 实施实践》？\n\n本文详细介绍了智能体工程的最佳实践\n\n详细分析请查看原文：https://github.com/subaochen/agent-engineering\n\n#人工智能 #智能体 #OpenClaw #AI 工程",
-  "juejin": "【技术分享】Project Context Skill 实施实践\n\n本文详细介绍了智能体工程的最佳实践\n\n点击查看完整文章：https://github.com/subaochen/agent-engineering\n\n#OpenClaw #智能体 #AI #前端 #工程实践",
-  "weibo": "#OpenClaw# #智能体# 新文发布：《Project Context Skill 实施实践》https://github.com/subaochen/agent-engineering",
-  "twitter": "📝 New Article: \"Project Context Skill 实施实践\"\n\nhttps://github.com/subaochen/agent-engineering\n\n#OpenClaw #AIAgent #MultiAgent #Engineering"
+  "wechat_moments_long": "📝 新文发布 | 《多群 Agent 也能定时敲打：OpenClaw Cron 实现 CEO 三思而后行》\n\n多 Agent 系统中，调度型 Agent（如 CEO）长期运行后容易\"跑偏\"——忘记流程步骤、亲自下场干活。本文分享一种低成本解决方案：利用 OpenClaw 内置的 Cron 调度系统，定时向 Agent 发送醒脑消息。\n\n✅ 开箱即用：零成本，无需 GPU\n✅ 可见可控：消息直达飞书群\n✅ 自动持续：每 30 分钟一次\n\n🔗 阅读全文：https://github.com/subaochen/agent-engineering\n\n#OpenClaw #智能体 #多Agent #工程实践 #Cron",
+  "wechat_moments_short": "📝 新文发布：《多群 Agent 也能定时敲打：OpenClaw Cron 实现 CEO 三思而后行》\n\nhttps://github.com/subaochen/agent-engineering\n\n#OpenClaw #智能体工程",
+  "zhihu": "如何评价《多群 Agent 也能定时敲打：OpenClaw Cron 实现 CEO 三思而后行》？\n\n多 Agent 系统中，调度型 Agent 长期运行后容易\"跑偏\"。本文分享一种基于 OpenClaw 内置 Cron 系统的低成本解决方案：\n- 每 30 分钟定时醒脑\n- HEARTBEAT.md + Isolated Session\n- 消息直达飞书群，可见可控\n\n详细分析请查看原文：https://github.com/subaochen/agent-engineering\n\n#人工智能 #智能体 #OpenClaw #多Agent #Cron",
+  "juejin": "【技术分享】多群 Agent 也能定时敲打：OpenClaw Cron 实现 CEO 三思而后行\n\n多 Agent 系统中，调度型 Agent（如 CEO）长期运行后容易\"跑偏\"。无需 GPU，无需写插件，利用 OpenClaw 内置的 Cron 系统就能解决。\n\n点击查看完整文章：https://github.com/subaochen/agent-engineering\n\n#OpenClaw #智能体 #AI #后端 #工程实践",
+  "weibo": "#OpenClaw# #智能体# 新文发布：《多群 Agent 也能定时敲打：OpenClaw Cron 实现 CEO 三思而后行》https://github.com/subaochen/agent-engineering",
+  "twitter": "📝 New Article: \"OpenClaw Cron: Keep Your CEO Agent on Track with Periodic Wake-up Calls\"\n\nhttps://github.com/subaochen/agent-engineering\n\n#OpenClaw #AIAgent #MultiAgent #Cron #Engineering"
 }

@@ -4,7 +4,7 @@
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![Articles](https://img.shields.io/badge/articles-6-blue.svg)]()
+[![Articles](https://img.shields.io/badge/articles-7-blue.svg)]()
 
 ---
 
@@ -135,6 +135,23 @@
 
 ---
 
+### 📍 第 7 篇：多群 Agent 也能定时敲打：OpenClaw Cron 实现 CEO 三思而后行
+
+**目录**：`07-ceo-cron-wakeup/`
+**创建时间**：2026-05-01
+**状态**：✅ 已完成
+**标签**：#OpenClaw #Cron #CEO #多Agent #流程约束
+
+**核心内容**：
+- Agent 上下文漂移问题分析
+- HEARTBEAT.md + Cron 醒脑方案
+- Isolated Session 与 light-context 优化
+- 实践效果与维护建议
+
+[📖 阅读全文](articles/07-ceo-cron-wakeup/README.md)
+
+---
+
 ## 📚 完整文章列表
 
 | 序号 | 标题 | 发布 | 更新 | 状态 | 标签 |
@@ -145,6 +162,7 @@
 | 4 | 上下文监控中间件 | 2026-04-22 | - | ✅ | Middleware, 监控 |
 | 5 | 多 Agent 协同 CI/CD 流水线实战 | 2026-04-22 | - | ✅ | CI/CD, DevOps |
 | 6 | Project Context 多 Agent 上下文传递 | 2026-04-23 | - | 🔍 | 上下文, 缓存 |
+| 7 | CEO Cron 醒脑机制 | 2026-05-01 | - | ✅ | Cron, CEO, 流程约束 |
 
 ---
 
