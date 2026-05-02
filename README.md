@@ -4,7 +4,7 @@
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![Articles](https://img.shields.io/badge/articles-7-blue.svg)]()
+[![Articles](https://img.shields.io/badge/articles-8-blue.svg)]()
 
 ---
 
@@ -246,6 +246,26 @@
 - OpenClaw 技术应用
 - 编程效率提升
 
+
+### 📍 第 8 篇：OpenClaw 工具循环检测：防止 Agent 陷入无限死循环的三层防护
+
+**目录**：`openclaw-工具循环检测-防止-agent-陷入无限死循环的三层防护/`  
+**发布时间**：2026-05-02  
+**阅读时间**：约 5 分钟  
+**状态**：✅ 已完成  
+**标签**：OpenClaw, Agent, 安全, loopDetection, exec
+
+**核心内容**：
+- 真实案例：CEO Agent 12+ 次重复同一命令
+- 根因分析：LLM 无状态特性 + exec 超时机制
+- 三层防护：系统层（loopDetection）+ Prompt 层（AGENTS.md 铁律）+ 权限层（profile 收紧）
+- 快速配置指南
+
+[📖 阅读全文](articles/openclaw-工具循环检测-防止-agent-陷入无限死循环的三层防护/README.md)
+
+
+---
+
 ![关注公众号](https://github.com/subaochen/agent-engineering/raw/main/assets/wechat-qr.jpg)
 
 > **👆 长按二维码，关注"智能体开发"**
@@ -263,4 +283,5 @@
 
 ---
 
-*最后更新：2026-04-23*
+*最后更新：2026-05-02*
+
