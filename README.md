@@ -4,7 +4,7 @@
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![Articles](https://img.shields.io/badge/articles-8-blue.svg)]()
+[![Articles](https://img.shields.io/badge/articles-9-blue.svg)]()
 
 ---
 
@@ -179,6 +179,9 @@
 4. 📍 第 4 篇：深入中间件实现细节
 5. 📍 第 5 篇：复杂场景 - 多 Agent CI/CD
 6. 📍 第 6 篇：最新实践 - Project Context Skill
+7. 📍 第 7 篇：CEO Cron 定时敲打
+8. 📍 第 8 篇：工具循环检测三层防护
+9. 📍 第 9 篇：AI Code Review 盲区与修复
 
 ### 技术栈
 
@@ -190,6 +193,9 @@
 ---
 
 ## 📝 更新日志
+
+### 2026-05-08
+- ✅ 新增第 9 篇文章：当CR没发现硬编码——AI Code Review的盲区与修复实践
 
 ### 2026-04-23
 - ✅ 新增第 6 篇文章：Project Context 多 Agent 上下文传递
@@ -263,6 +269,24 @@
 
 [📖 阅读全文](articles/openclaw-工具循环检测-防止-agent-陷入无限死循环的三层防护/README.md)
 
+---
+
+### 📍 第 9 篇：当CR没发现硬编码——AI Code Review的盲区与修复实践
+
+**目录**：`当cr没发现硬编码-ai-code-review的盲区与修复实践/`  
+**发布时间**：2026-05-08  
+**阅读时间**：约 3 分钟  
+**状态**：✅ 已完成  
+**标签**：Agent, CodeReview, LLM, 硬编码, 工程化
+
+**核心内容**：
+- 真实案例：硬编码值与配置文件冲突，CR 未能发现
+- 根因分析：Checklist 盲区 + LLM 跨文件审查局限 + 人格设定≠执行能力
+- 修复方案：AGENTS.md 新增 P0 级配置一致性检查
+- 三层硬编码检测体系：静态扫描 + 跨文件比对 + 运行时校验
+
+[📖 阅读全文](articles/当cr没发现硬编码-ai-code-review的盲区与修复实践/README.md)
+
 
 ---
 
@@ -283,5 +307,5 @@
 
 ---
 
-*最后更新：2026-05-02*
+*最后更新：2026-05-08*
 
