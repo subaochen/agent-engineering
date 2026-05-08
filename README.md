@@ -43,7 +43,7 @@
 - 智能路由、并行编排、可观测性
 - 图片 Token 检查和自动压缩（2026-04-23 新增）
 
-[📖 阅读全文](articles/01-harness-engineering-guide/harness-engineering-implementation-guide.md)
+[📖 阅读全文](articles/01-harness-engineering-guide/README.md)
 
 ---
 
@@ -61,7 +61,7 @@
 - 实战案例分享
 - 5 个开箱即用模板
 
-[📖 阅读全文](articles/02-workflow-tutorial/workflow-engine-tutorial.md)
+[📖 阅读全文](articles/02-workflow-tutorial/README.md)
 
 ---
 
@@ -80,7 +80,7 @@
 - 常见问题与解决方案
 - 图片 + 文本 Token 超限处理（2026-04-23 新增）
 
-[📖 阅读全文](articles/03-llm-context-warning/llm-.md)
+[📖 阅读全文](articles/03-llm-context-warning/README.md)
 
 ---
 
@@ -97,7 +97,7 @@
 - 完整实施指南
 - 可复用代码示例
 
-[📖 阅读全文](articles/04-context-middleware/openclaw-llm-.md)
+[📖 阅读全文](articles/04-context-middleware/README.md)
 
 ---
 
@@ -114,7 +114,7 @@
 - 基于 OpenClaw 的完整实现方案
 - 最佳实践与性能优化技巧
 
-[📖 阅读全文](articles/05-multiagent-cicd/openclaw-multiagent-cicd-practice.md)
+[📖 阅读全文](articles/05-multiagent-cicd/README.md)
 
 ---
 
@@ -163,6 +163,8 @@
 | 5 | 多 Agent 协同 CI/CD 流水线实战 | 2026-04-22 | - | ✅ | CI/CD, DevOps |
 | 6 | Project Context 多 Agent 上下文传递 | 2026-04-23 | - | 🔍 | 上下文, 缓存 |
 | 7 | CEO Cron 醒脑机制 | 2026-05-01 | - | ✅ | Cron, CEO, 流程约束 |
+| 8 | OpenClaw 工具循环检测：三层防护 | 2026-05-02 | - | ✅ | 循环检测, Guard, 防护 |
+| 9 | 当CR没发现硬编码——AI Code Review的盲区与修复实践 | 2026-05-08 | - | ✅ | CR, 硬编码, 配置一致性 |
 
 ---
 
@@ -196,6 +198,8 @@
 
 ### 2026-05-08
 - ✅ 新增第 9 篇文章：当CR没发现硬编码——AI Code Review的盲区与修复实践
+- 🔧 统一文章目录结构：标准化为 `NN-english-name/README.md` 格式
+- 🔧 修复第 1~5 篇文章 README.md 链接路径
 
 ### 2026-04-23
 - ✅ 新增第 6 篇文章：Project Context 多 Agent 上下文传递
