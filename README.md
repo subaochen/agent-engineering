@@ -4,7 +4,7 @@
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![Articles](https://img.shields.io/badge/articles-9-blue.svg)]()
+[![Articles](https://img.shields.io/badge/articles-10-blue.svg)]()
 
 ---
 
@@ -291,6 +291,24 @@
 
 [📖 阅读全文](articles/当cr没发现硬编码-ai-code-review的盲区与修复实践/README.md)
 
+---
+
+### 📍 第 10 篇：OpenClaw 如何分派 OpenCode
+
+**目录**：`openclaw-如何分派-opencode/`  
+**发布时间**：2026-05-08  
+**阅读时间**：约 8 分钟  
+**状态**：✅ 已完成  
+**标签**：Agent, OpenClaw, OpenCode, sessions_spawn, ACP, 多Agent
+
+**核心内容**：
+- sessions_spawn 完整参数列表详解
+- ACP vs Subagent 两种运行时的差异与适用场景
+- 推送式完成通知与 wake 机制
+- 超时控制、心跳检测与 kill 恢复策略
+- 幂等性保证与状态管理
+
+[📖 阅读全文](articles/openclaw-如何分派-opencode/README.md)
 
 ---
 
