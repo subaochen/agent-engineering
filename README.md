@@ -4,7 +4,7 @@
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![Articles](https://img.shields.io/badge/articles-10-blue.svg)]()
+[![Articles](https://img.shields.io/badge/articles-11-blue.svg)]()
 
 ---
 
@@ -152,6 +152,23 @@
 
 ---
 
+
+### 📍 第 11 篇：Agent 醒来失忆？从根上解决多 Agent 系统的上下文恢复问题
+
+**目录**：`agent-醒来失忆-从根上解决多-agent-系统的上下文恢复问题/`
+**创建时间**：2026-05-14
+**状态**：✅ 已完成
+**标签**：#工程实践
+
+**核心内容**：
+- 技术方案详解
+- 实施过程
+- 经验总结
+
+[📖 阅读全文](articles/agent-醒来失忆-从根上解决多-agent-系统的上下文恢复问题/README.md)
+
+---
+
 ## 📚 完整文章列表
 
 | 序号 | 标题 | 发布 | 更新 | 状态 | 标签 |
@@ -165,6 +182,7 @@
 | 7 | CEO Cron 醒脑机制 | 2026-05-01 | - | ✅ | Cron, CEO, 流程约束 |
 | 8 | OpenClaw 工具循环检测：三层防护 | 2026-05-02 | - | ✅ | 循环检测, Guard, 防护 |
 | 9 | 当CR没发现硬编码——AI Code Review的盲区与修复实践 | 2026-05-08 | - | ✅ | CR, 硬编码, 配置一致性 |
+| 10 | Agent 醒来失忆？从根上解决多 Agent 系统的... | 2026-05-14 | - | ✅ | 工程实践 |
 
 ---
 
