@@ -1,8 +1,8 @@
 {
-  "wechat_moments_long": "📝 新文发布 | 《当CR没发现硬编码——AI Code Review的盲区与修复实践》\n\n一段代码中硬编码了与配置文件冲突的值，资深架构师级别的 Code Reviewer 却没能发现。这不是CR的失职，而是LLM审查的结构性盲区。本文剖析根因、给出修复方案，并探讨如何让AI Code Review真正可靠。\n\n本文详细介绍了智能体工程的最佳实践，包括：\n✅ 完整的设计思路\n✅ 详细的实施过程\n✅ 实用的代码示例\n✅ 深入的反思总结\n\n适合对 AI Agent、多 Agent 协作、智能体工程感兴趣的朋友阅读！\n\n🔗 阅读全文：https://github.com/subaochen/agent-engineering\n\n#OpenClaw #智能体 #AI 工程 #技术分享",
-  "wechat_moments_short": "📝 新文发布：《当CR没发现硬编码——AI Code Review的盲区与修复实践》\n\nhttps://github.com/subaochen/agent-engineering\n\n#OpenClaw #智能体工程",
-  "zhihu": "如何评价《当CR没发现硬编码——AI Code Review的盲区与修复实践》？\n\n一段代码中硬编码了与配置文件冲突的值，资深架构师级别的 Code Reviewer 却没能发现。这不是CR的失职，而是LLM审查的结构性盲区。本文剖析根因、给出修复方案，并探讨如何让AI Code Review真正可靠。\n\n详细分析请查看原文：https://github.com/subaochen/agent-engineering\n\n#人工智能 #智能体 #OpenClaw #AI 工程",
-  "juejin": "【技术分享】当CR没发现硬编码——AI Code Review的盲区与修复实践\n\n一段代码中硬编码了与配置文件冲突的值，资深架构师级别的 Code Reviewer 却没能发现。这不是CR的失职，而是LLM审查的结构性盲区。本文剖析根因、给出修复方案，并探讨如何让AI Code Review真正可靠。\n\n点击查看完整文章：https://github.com/subaochen/agent-engineering\n\n#OpenClaw #智能体 #AI #前端 #工程实践",
-  "weibo": "#OpenClaw# #智能体# 新文发布：《当CR没发现硬编码——AI Code Review的盲区与修复实践》https://github.com/subaochen/agent-engineering",
-  "twitter": "📝 New Article: \"当CR没发现硬编码——AI Code Review的盲区与修复实践\"\n\nhttps://github.com/subaochen/agent-engineering\n\n#OpenClaw #AIAgent #MultiAgent #Engineering"
+  "wechat_moments_long": "📝 新文发布 | 《Agent 醒来失忆？从根上解决多 Agent 系统的上下文恢复问题》\n\n本文详细介绍了智能体工程的最佳实践\n\n本文详细介绍了智能体工程的最佳实践，包括：\n✅ 完整的设计思路\n✅ 详细的实施过程\n✅ 实用的代码示例\n✅ 深入的反思总结\n\n适合对 AI Agent、多 Agent 协作、智能体工程感兴趣的朋友阅读！\n\n🔗 阅读全文：https://github.com/subaochen/agent-engineering\n\n#OpenClaw #智能体 #AI 工程 #技术分享",
+  "wechat_moments_short": "📝 新文发布：《Agent 醒来失忆？从根上解决多 Agent 系统的上下文恢复问题》\n\nhttps://github.com/subaochen/agent-engineering\n\n#OpenClaw #智能体工程",
+  "zhihu": "如何评价《Agent 醒来失忆？从根上解决多 Agent 系统的上下文恢复问题》？\n\n本文详细介绍了智能体工程的最佳实践\n\n详细分析请查看原文：https://github.com/subaochen/agent-engineering\n\n#人工智能 #智能体 #OpenClaw #AI 工程",
+  "juejin": "【技术分享】Agent 醒来失忆？从根上解决多 Agent 系统的上下文恢复问题\n\n本文详细介绍了智能体工程的最佳实践\n\n点击查看完整文章：https://github.com/subaochen/agent-engineering\n\n#OpenClaw #智能体 #AI #前端 #工程实践",
+  "weibo": "#OpenClaw# #智能体# 新文发布：《Agent 醒来失忆？从根上解决多 Agent 系统的上下文恢复问题》https://github.com/subaochen/agent-engineering",
+  "twitter": "📝 New Article: \"Agent 醒来失忆？从根上解决多 Agent 系统的上下文恢复问题\"\n\nhttps://github.com/subaochen/agent-engineering\n\n#OpenClaw #AIAgent #MultiAgent #Engineering"
 }
